@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Add Student - Student Record Management{% endblock %}
+
+{% block content %}
+<div class="form-page">
+    <h1 class="page-title">➕ Add New Student</h1>
+
+    <form action="{{ url_for('add_student') }}" method="POST" class="student-form" onsubmit="return validateForm();">
+        <div class="form-group">
+            <label for="student_id">Student ID *</label>
+            <input type="text" id="student_id" name="student_id" value="{{ form_data.get('student_id', '') }}" required placeholder="e.g. STU006">
+        </div>
+
+        <div class="form-group">
+            <label for="full_name">Full Name *</label>
+            <input type="text" id="full_name" name="full_name" value="{{ form_data.get('full_name', '') }}" required placeholder="e.g. John Doe">
+        </div>
+
+        <div class="form-group">
+            <label for="department">Department *</label>
+            <input type="text" id="department" name="department" value="{{ form_data.get('department', '') }}" required placeholder="e.g. Computer Science">
+        </div>
+
+        <div class="form-group">
+            <label for="year">Year *</label>
+            <select id="year" name="year" required>
+                <option value="" disabled {% if not form_data.get('year') %}selected{% endif %}>-- Select Year --</option>
+                <option value="1st Year" {% if form_data.get('year') == '1st Year' %}selected{% endif %}>1st Year</option>
+                <option value="2nd Year" {% if form_data.get('year') == '2nd Year' %}selected{% endif %}>2nd Year</option>
+                <option value="3rd Year" {% if form_data.get('year') == '3rd Year' %}selected{% endif %}>3rd Year</option>
+                <option value="4th Year" {% if form_data.get('year') == '4th Year' %}selected{% endif %}>4th Year</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" value="{{ form_data.get('email', '') }}" required placeholder="e.g. john.doe@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="text" id="phone" name="phone" value="{{ form_data.get('phone', '') }}" required placeholder="e.g. 9876543210">
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Student</button>
+            <a href="{{ url_for('students') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

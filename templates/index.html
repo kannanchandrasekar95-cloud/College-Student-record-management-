@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Student Record Management{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h1 class="page-title">🏠 Home Dashboard</h1>
+    <p class="page-subtitle">Welcome to the Student Record Management System</p>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">👨‍🎓</div>
+            <div class="stat-info">
+                <h2>{{ total_students }}</h2>
+                <p>Total Students</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🏢</div>
+            <div class="stat-info">
+                <h2>{{ departments }}</h2>
+                <p>Departments</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-actions">
+        <a href="{{ url_for('add_student') }}" class="btn btn-primary">+ Add New Student</a>
+        <a href="{{ url_for('students') }}" class="btn btn-secondary">View All Students</a>
+    </div>
+
+    <div class="recent-section">
+        <h2>Recently Added Students</h2>
+        {% if recent_students %}
+        <div class="table-wrapper">
+            <table class="student-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Full Name</th>
+                        <th>Department</th>
+                        <th>Year</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in recent_students %}
+                    <tr>
+                        <td>{{ student['student_id'] }}</td>
+                        <td>{{ student['full_name'] }}</td>
+                        <td>{{ student['department'] }}</td>
+                        <td>{{ student['year'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="empty-message">No students added yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
